@@ -2,17 +2,16 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import DemoCalendar from "./Calendar";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const windowData = window.name ? JSON.parse(window.name) : {};
-
+    setLoading(false);
     if (!windowData.token) return;
-    setToken(windowData.token);
     setLoading(false);
     // fetch("/api/verify", {
     //   method: "POST",
@@ -66,7 +65,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        {loading ? <p>Loading ...</p> : <div>{token}</div>}
+        {loading ? (
+          <p>Loading ...</p>
+        ) : (
+          <>
+            <DemoCalendar></DemoCalendar>
+          </>
+        )}
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
