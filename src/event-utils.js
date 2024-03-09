@@ -5,10 +5,18 @@ var m = today.getMonth();
 var d = today.getDate();
 
 export const INITIAL_EVENTS = [];
+export const RESOURCES = [
+  { id: 1, title: "Mr A" },
+  { id: 2, title: "Mr B" },
+  { id: 3, title: "Ms C" },
+  { id: 4, title: "Ms D" },
+  { id: 5, title: "Ms E" },
+];
 
 for (let i = 0; i < 30; i++) {
   const working_location =
     Math.floor(Math.random() * 10) % 2 === 0 ? "home" : "office";
+  const randomResourceIndex = Math.floor(Math.random() * 4);
   INITIAL_EVENTS.push({
     id: createEventId(),
     title: `${working_location}`,
@@ -16,6 +24,7 @@ for (let i = 0; i < 30; i++) {
     allDay: true,
     className: `event working-location-${working_location}`,
     groupId: working_location,
+    resourceId: RESOURCES[randomResourceIndex].id,
   });
 }
 

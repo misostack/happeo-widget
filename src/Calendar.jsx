@@ -3,6 +3,7 @@ import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import interactionPlugin from "@fullcalendar/interaction";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,7 @@ import {
   faHome,
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
+import { RESOURCES } from "./event-utils";
 
 export default function DemoCalendar() {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -55,18 +57,32 @@ export default function DemoCalendar() {
     <div className="demo-app">
       <div className="demo-app-main">
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+            resourceTimelinePlugin,
+          ]}
           //   aspectRatio={1}
           contentHeight={"auto"}
           headerToolbar={{
             right: "prev,next,today",
           }}
-          initialView="dayGridWeek"
+          initialView="resourceTimelineFourDays"
+          resourceAreaHeaderContent={"Team members"}
+          views={{
+            resourceTimelineFourDays: {
+              type: "resourceTimeline",
+              duration: { days: 7 },
+              slotDuration: "24:00:00",
+            },
+          }}
           editable={true}
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
+          resources={RESOURCES}
           initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
