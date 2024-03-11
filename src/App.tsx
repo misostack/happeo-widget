@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import AuthService from "./services/auth-service";
 import HappeoService from "./services/happeo-service";
+import enviroment from "./shared/environment";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -76,6 +77,12 @@ function App() {
     <>
       <Container>
         <Outlet />
+        <footer>
+          <p>
+            {enviroment.APP_NAME}({enviroment.APP_VERSION}) -{" "}
+            {enviroment.APP_LIVE ? "live" : "off"}
+          </p>
+        </footer>
       </Container>
     </>
   );
